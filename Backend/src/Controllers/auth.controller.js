@@ -2,7 +2,8 @@ import {sendWelcomeEmail} from "../Email/emailHandler.handler.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import {generateToken} from "../utils/utils.js";
-import messageModel from "../models/message.model.js";
+import cloudinary from "../utils/cloundinary.js";
+import { ENV } from "../utils/env.js";
 
 const GENERIC_CLIENT_ERROR = "Authentication failed.";
 const GENERIC_SERVER_ERROR = "Internal server error.";
@@ -49,7 +50,7 @@ export const signup = async (req, res) => {
             profilePic: createdUser.profilePic,
         });
 
-        sendWelcomeEmail(createdUser.email, createdUser.fullName, process.env.CLIENT_URL).catch((err) =>
+        sendWelcomeEmail(createdUser.email, createdUser.fullName, ENV.CLIENT_URL).catch((err) =>
             console.error("Failed to send welcome email:", err)
         );
     } catch (error) {
@@ -96,4 +97,31 @@ export const logout = (_, res) => {
     res.status(200).json({message : " Logged out successfully. "});
 }
 
-;
+export const updateProfilePic = async (req, res) => {
+    try {
+        const { profilePic } = req.body;
+
+        if(!profilePic) {
+            return res.status(400).json({message : "Profile picture is required."})
+        }
+
+        const uploadedPic = await cloudinary.uploader.upload(profilePic);
+
+        const updatedUser = await User.findByIdAndUpdate(
+            req.user._id,
+            { profilePic : uploadedPic.secure_url },
+            { new : true},
+        )
+
+        res.status(200).json({
+            _id: updatedUser._id,
+            fullName: updatedUser.fullName,
+            email: updatedUser.email,
+            profilePic: updatedUser.profilePic
+        });
+
+    } catch(error) {
+        console.error("Error in updateProfile controller:", error);
+        return res.status(500).json({ message: GENERIC_SERVER_ERROR });
+    }
+};
