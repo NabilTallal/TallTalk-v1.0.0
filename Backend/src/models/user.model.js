@@ -1,33 +1,29 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
     {
-        senderId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        fullName: {
+            type: String,
             required: true,
         },
-        receiverId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+        password: {
+            type: String,
             required: true,
+            minlength: 8,
         },
-        text: {
+        profilePic: {
             type: String,
-            trim: true,
-            maxlength: 2000,
-        },
-        image: {
-            type: String,
-        },
-        deletedForAll: {
-            type: Boolean,
-            default: false, // Messages are visible by default
+            default: "",
         },
     },
-    { timestamps: true }
+    { timestamps: true } // createdAt & updatedAt
 );
 
-const userModel = mongoose.model("Message", userSchema);
+const User = mongoose.model("User", userSchema);
 
-export default userModel;
+export default User;
