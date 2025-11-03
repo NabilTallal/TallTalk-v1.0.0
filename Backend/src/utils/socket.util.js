@@ -1,0 +1,41 @@
+import { Server } from "socket.io";
+import http from "http";
+import express from "express";
+import { ENV } from "./env.js";
+
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: [ENV.CLIENT_URL],
+        credentials: true,
+    },
+});
+
+const userSocketMap = {};
+
+export function getReceiverSocketId(userId) {
+    return userSocketMap[userId] || null;
+}
+
+io.on("connection", (socket) => {
+    const userId = socket.handshake.query.userId; // get from query
+    if (!userId) {
+        console.log("Connection rejected: No userId provided");
+        socket.disconnect();
+        return;
+    }
+
+    console.log(`User connected: ${userId}`);
+    userSocketMap[userId] = socket.id;
+
+    io.emit("getOnlineUsers", Object.keys(userSocketMap));
+
+    socket.on("disconnect", () => {
+        console.log(`User disconnected: ${userId}`);
+        delete userSocketMap[userId];
+        io.emit("getOnlineUsers", Object.keys(userSocketMap));
+    });
+});
+
+export { io, app, server };
