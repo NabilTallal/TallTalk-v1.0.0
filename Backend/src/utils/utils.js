@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-
+import dotenv from "dotenv";
 /**
  * Generates a JWT for the given user and sets it as an HTTP-only cookie.
  * @param {string} userId - The MongoDB _id of the user.
