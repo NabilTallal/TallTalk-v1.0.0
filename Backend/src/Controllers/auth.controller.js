@@ -2,7 +2,7 @@ import {sendWelcomeEmail} from "../Email/emailHandler.handler.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import {generateToken} from "../utils/utils.js";
-import cloudinary from "../utils/cloundinary.js";
+import cloudinary from "../utils/cloudinary.util.js";
 import { ENV } from "../utils/env.js";
 
 const GENERIC_CLIENT_ERROR = "Authentication failed.";
