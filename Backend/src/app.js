@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import { ENV } from './utils/env.js';
 import authRoutes from './Routes/auth.route.js';
+import {connectDB} from "./utils/db.util.js";
 
 const app = express();
 
@@ -25,5 +26,16 @@ if(ENV.NODE_ENV === "production") {
     });
 }
 
-app.listen(PORT, () => console.log("Server running on port 4000"));
+const startServer = async () => {
+    try {
+        await connectDB(); // Wait for DB connection first
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.error("Failed to start server:", error);
+        process.exit(1);
+    }
+};
 
+startServer();
