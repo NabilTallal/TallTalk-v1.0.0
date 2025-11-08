@@ -3,7 +3,6 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
 import morgan from "morgan";
-
 import { ENV } from "./utils/env.js";
 import { connectDB } from "./utils/db.util.js";
 import { securityProtection, applySecurityHeaders } from "./Middleware/TallSec.middleware.js";

@@ -18,6 +18,6 @@ router.get("/contacts", getAllUsers);
 router.get("/chats", getChatPartners);
 router.get("/users/:userId/messages", getMessagesByUserId);
 router.post("/users/:userId/messages", sendMessage);
-router.put("/messages/:messageId/deleteForAll", deleteMessageForEveryone);
+router.put("/:messageId/deleteForAll", deleteMessageForEveryone);
 
 export default router;
