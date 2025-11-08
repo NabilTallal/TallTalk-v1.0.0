@@ -1,8 +1,11 @@
 import express from "express";
 import {signup, login, logout, updateProfilePic} from "../Controllers/auth.controller.js";
 import {protectRoute} from "../Middleware/auth.middleware.js";
+import {securityProtection} from "../Middleware/tallSec.middleware.js";
 
 const router = express.Router();
+
+router.use(securityProtection);
 
 router.post("/signup", signup);
 router.post("/login", login);
