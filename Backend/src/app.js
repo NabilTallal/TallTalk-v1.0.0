@@ -12,13 +12,13 @@ import messageRoutes from "./Routes/message.route.js";
 
 const app = express();
 const __dirname = path.resolve();
-const PORT = ENV.PORT || 4000;
+const PORT = ENV.PORT;
 
 app.use(express.json({ limit: "5mb" })); // Parse JSON bodies
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true })); // Enable CORS for frontend
 app.use(cookieParser()); // Parse cookies
 app.use(applySecurityHeaders); // HTTP helmet
-app.use(securityProtection); // Apply security layer globally
+// app.use(securityProtection); // Disable in development.
 if (ENV.NODE_ENV === "development") app.use(morgan("dev")); // Logging in dev
 
 app.use("/api/auth", authRoutes);
@@ -30,11 +30,6 @@ if (ENV.NODE_ENV === "production") {
         res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
     });
 }
-
-app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(500).json({ message: "Internal Server Error" });
-});
 
 const startServer = async () => {
     try {
