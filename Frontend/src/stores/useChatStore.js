@@ -5,7 +5,7 @@ import { useAuthStore } from "./useAuthStore.js";
 import { chatService } from "../utils/chatService.js";
 import { socketService } from "../utils/socketService.js";
 
-export const useChatActionsStore = create((set, get) => ({
+export const useChatStore = create((set, get) => ({
     messages: [],
     selectedUser: null,
     activeTab: "chats",
