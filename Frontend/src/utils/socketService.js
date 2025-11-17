@@ -17,5 +17,26 @@ export const socketService = {
 
     getSocket() {
         return socket;
+    },
+
+    on(event, callback) {
+        if (!socket) return;
+        socket.on(event, callback);
+    },
+
+    off(event) {
+        if (!socket) return;
+        socket.off(event);
+    },
+
+    emit(event, data) {
+        if (!socket) return;
+        socket.emit(event, data);
+    },
+
+    // Optional helper: remove all listeners
+    removeAllListeners() {
+        if (!socket) return;
+        socket.removeAllListeners();
     }
 };
