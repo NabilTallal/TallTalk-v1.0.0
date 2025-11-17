@@ -2,8 +2,8 @@ import { axiosInstance } from "./axios.js";
 
 export const authService = {
     checkAuth: () => axiosInstance.get("/auth/check"),
-    signup: (data) => axiosInstance.post("/auth/signup", data),
-    login: (data) => axiosInstance.post("/auth/login", data),
+    signup: (credentials) => axiosInstance.post("/auth/signup", credentials),
+    login: (credentials) => axiosInstance.post("/auth/login", credentials),
     logout: () => axiosInstance.post("/auth/logout"),
-    updateProfile: (data) => axiosInstance.put("/auth/profile-update", data),
+    updateProfile: (profileData) => axiosInstance.put("/auth/profile-update", profileData),
 };
