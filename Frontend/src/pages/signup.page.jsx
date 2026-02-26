@@ -29,7 +29,7 @@ function SignUpPage() {
                                        transition-all duration-500 ease-in-out"
                         >
                             <img
-                                src="/logo.png"
+                                src="/TallTalk_Logo.png"
                                 alt="TallTalk Logo"
                                 className="w-16 h-16 drop-shadow-[0_0_12px_rgba(132,255,100,0.7)] animate-float"
                             />
