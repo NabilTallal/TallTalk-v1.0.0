@@ -1,11 +1,11 @@
 import { Routes, Route, Navigate} from "react-router";
-import AnimatedBackground from "./components/background/AnimatedBackground.jsx";
+import AnimatedBackground from "./components/Background/AnimatedBackground.jsx";
 import ChatPage from "./pages/chat.page.jsx";
 import LoginPage from "./pages/login.page.jsx";
 import SignUpPage from "./pages/signup.page.jsx";
 import {useAuthStore} from "./stores/useAuthStore.js";
 import {useEffect} from "react";
-import PageLoader from "./components/loaders/PageLoader.jsx";
+import PageLoader from "./components/Loaders/PageLoader.jsx";
 import {Toaster} from "react-hot-toast";
 
 function App() {
