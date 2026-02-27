@@ -1,7 +1,7 @@
 import { MessageSquareOff } from "lucide-react";
-import { useChatStore } from "../../store/useChatStore.js";
+import { useChatStore } from "../../stores/useChatStore.js";
 import { useEffect } from "react";
-import { useAuthStore } from "../../store/useAuthStore.js";
+import { useAuthStore } from "../../stores/useAuthStore.js";
 
 function ChatHeader() {
     const { selectedUser, setSelectedUser } = useChatStore();

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { useChatStore } from "../../store/useChatStore.js";
+import { useChatStore } from "../../stores/useChatStore.js";
 
 function ChatViewSelector() {
     const { activeTab, setActiveTab } = useChatStore();

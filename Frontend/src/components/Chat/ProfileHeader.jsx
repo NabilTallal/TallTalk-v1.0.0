@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Power, Info } from "lucide-react";
-import { useAuthStore } from "../../store/useAuthStore.js";
+import { useAuthStore } from "../../stores/useAuthStore.js";
 
 function ProfileHeader() {
     const { logout, authUser, updateProfile } = useAuthStore();

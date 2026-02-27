@@ -3,15 +3,17 @@ import { useChatStore } from "../../stores/useChatStore.js";
 import ContactsLoader from "../loaders/ContactsLoader.jsx";
 import NoChatsFound from "../Holders/NoChatsFound.jsx";
 import { useAuthStore } from "../../stores/useAuthStore.js";
+import { useUserStore} from "../../stores/useUserStore.js";
 
 function ChatsList() {
-    const { getMyChatPartners, chats, isUsersLoading, setSelectedUser, selectedUser } = useChatStore();
+    const { chats, setSelectedUser, selectedUser } = useChatStore();
     const { onlineUsers } = useAuthStore();
+    const { loadMyChatPartners } = useUserStore();
     const [activeChatId, setActiveChatId] = useState(null);
 
     useEffect(() => {
-        getMyChatPartners();
-    }, [getMyChatPartners]);
+        loadMyChatPartners();
+    }, [loadMyChatPartners]);
 
     // Reset active chat when leaving a chat
     useEffect(() => {

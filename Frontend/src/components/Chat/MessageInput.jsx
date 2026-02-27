@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { useChatStore } from "../../store/useChatStore.js";
+import { useChatStore } from "../../stores/useChatStore.js";
 import toast from "react-hot-toast";
 import { ImageIcon, SendIcon, XIcon, SmileIcon } from "lucide-react";
 import EmojiPicker from "emoji-picker-react";

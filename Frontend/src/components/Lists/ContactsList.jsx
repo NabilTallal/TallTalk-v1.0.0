@@ -2,20 +2,22 @@ import { useEffect } from "react";
 import { useChatStore } from "../../stores/useChatStore.js";
 import ContactsLoader from "../loaders/ContactsLoader.jsx";
 import { useAuthStore } from "../../stores/useAuthStore.js";
+import { useUserStore } from "../../stores/useUserStore.js";
 
 function ContactList() {
-    const { getAllContacts, allContacts, setSelectedUser, isUsersLoading } = useChatStore();
+    const { setSelectedUser } = useChatStore();
+    const { loadAllContacts, loadMyChatPartners, isUsersLoading} = useUserStore();
     const { onlineUsers } = useAuthStore();
 
     useEffect(() => {
-        getAllContacts();
-    }, [getAllContacts]);
+        loadAllContacts();
+    }, [loadAllContacts]);
 
     if (isUsersLoading) return <ContactsLoader />;
 
     return (
         <div className="space-y-2">
-            {allContacts.map((contact) => (
+            {loadAllContacts.map((contact) => (
                 <div
                     key={contact._id}
                     onClick={() => setSelectedUser(contact)}
