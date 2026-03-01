@@ -4,8 +4,8 @@ export const chatService = {
     getMessagesByUserId: (userId) =>
         axiosInstance.get(`/messages/users/${userId}/messages`),
 
-    sendMessage: (userId, messageData) =>
-        axiosInstance.post(`/messages/users/${userId}/messages`, messageData),
+    sendMessage: (receiverId, messageData) =>
+        axiosInstance.post(`/messages/users/send/${receiverId}/messages`, messageData),
 
     deleteMessageForEveryone: (messageId) =>
         axiosInstance.put(`/messages/${messageId}/deleteForAll`),

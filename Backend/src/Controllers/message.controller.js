@@ -21,7 +21,7 @@ export const getAllUsers = async(req, res) => {
 export const getMessagesByUserId = async(req, res) => {
     try {
         const userId = req.user._id;
-        const {id : chatPartnerId} = req.params;
+        const {userId : chatPartnerId} = req.params;
 
         const messages = await Message.find({
             $or : [
@@ -40,7 +40,7 @@ export const getMessagesByUserId = async(req, res) => {
 export const sendMessage = async (req, res) => {
     try {
         const { text, image } = req.body;
-        const {id : receiverId } = req.params;
+        const { userId: receiverId } = req.params;
         const senderId = req.user._id;
 
         if( !text && !image ) {
@@ -51,7 +51,7 @@ export const sendMessage = async (req, res) => {
             return res.status(400).json({message: "Cannot send message to yourself."});
         }
 
-        const receiverExists = await User.exists({_id : receiverId});
+        const receiverExists = await User.exists({ _id : receiverId });
 
         if(!receiverExists) {
             return res.status(400).json({message: "Receiver is not found."})
@@ -64,7 +64,15 @@ export const sendMessage = async (req, res) => {
             imageUrl = uploadedImage.secure_url;
         }
 
-        const newMessage = await Message.create({ senderId, receiverId, text, image: imageUrl });
+        const newMessage = new Message({
+            senderId,
+            receiverId,
+            text,
+            image: imageUrl,
+        });
+
+        await newMessage.save();
+
 
         const receiverSocketId = getReceiverSocketId(receiverId);
         if(receiverSocketId) {
@@ -109,7 +117,7 @@ export const getChatPartners = async (req, res) => {
 
 export const deleteMessageForEveryone = async (req, res) => {
     try {
-        const messageId = req.params.id;
+        const messageId = req.params.messageId;
         const userId = req.user._id;
 
         const message = await Message.findById(messageId);

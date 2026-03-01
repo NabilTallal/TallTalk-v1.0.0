@@ -10,7 +10,7 @@ import MessagesLoader from "../loaders/MessagesLoader.jsx";
 function ChatContainer() {
     const {
         selectedUser,
-        getMessagesByUserId,
+        loadMessages,
         messages,
         isMessagesLoading,
         subscribeToMessages,
@@ -22,11 +22,11 @@ function ChatContainer() {
 
     useEffect(() => {
         if (!selectedUser) return;
-        getMessagesByUserId(selectedUser._id);
+        loadMessages(selectedUser._id);
         subscribeToMessages();
 
         return () => unsubscribeFromMessages();
-    }, [selectedUser, getMessagesByUserId, subscribeToMessages, unsubscribeFromMessages]);
+    }, [selectedUser, loadMessages, subscribeToMessages, unsubscribeFromMessages]);
 
     useEffect(() => {
         if (messageEndRef.current) {

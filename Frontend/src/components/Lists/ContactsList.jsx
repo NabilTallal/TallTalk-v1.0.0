@@ -6,18 +6,18 @@ import { useUserStore } from "../../stores/useUserStore.js";
 
 function ContactList() {
     const { setSelectedUser } = useChatStore();
-    const { loadAllContacts, loadMyChatPartners, isUsersLoading} = useUserStore();
+    const { allContacts, loadAllContacts,  isContactsLoading} = useUserStore();
     const { onlineUsers } = useAuthStore();
 
     useEffect(() => {
         loadAllContacts();
     }, [loadAllContacts]);
 
-    if (isUsersLoading) return <ContactsLoader />;
+    if (isContactsLoading) return <ContactsLoader />;
 
     return (
         <div className="space-y-2">
-            {loadAllContacts.map((contact) => (
+            {allContacts.map((contact) => (
                 <div
                     key={contact._id}
                     onClick={() => setSelectedUser(contact)}

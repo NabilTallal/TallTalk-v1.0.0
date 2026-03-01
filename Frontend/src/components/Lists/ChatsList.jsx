@@ -6,9 +6,9 @@ import { useAuthStore } from "../../stores/useAuthStore.js";
 import { useUserStore} from "../../stores/useUserStore.js";
 
 function ChatsList() {
-    const { chats, setSelectedUser, selectedUser } = useChatStore();
+    const { setSelectedUser, selectedUser } = useChatStore();
     const { onlineUsers } = useAuthStore();
-    const { loadMyChatPartners } = useUserStore();
+    const { chats,loadMyChatPartners, isUsersLoading } = useUserStore();
     const [activeChatId, setActiveChatId] = useState(null);
 
     useEffect(() => {

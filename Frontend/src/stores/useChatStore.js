@@ -7,6 +7,7 @@ import { socketService } from "../utils/socketService.js";
 
 export const useChatStore = create((set, get) => ({
     messages: [],
+    chats: [],
     selectedUser: null,
     activeTab: "chats",
     isMessagesLoading: false,
@@ -37,9 +38,8 @@ export const useChatStore = create((set, get) => ({
         const { selectedUser, messages } = get();
         const { authUser, socket } = useAuthStore.getState();
 
-        if (!selectedUser?._id || !authUser?._id || !socket) return;
-
         const tempId = `temp-${Date.now()}`;
+
         const optimisticMessage = {
             _id: tempId,
             senderId: authUser._id,
@@ -48,24 +48,33 @@ export const useChatStore = create((set, get) => ({
             image: messageData.image,
             createdAt: new Date().toISOString(),
             isOptimistic: true,
-            deletedForAll: false,
+            deletedForAll: false, // make sure new messages have this field
         };
 
-        set((state) => ({ messages: [...state.messages, optimisticMessage] }));
+        // Add optimistic message
+        set({ messages: [...messages, optimisticMessage] });
 
         try {
-            const res = await chatService.sendMessage(selectedUser._id, messageData);
+            const res = await chatService.sendMessage(
+                selectedUser._id,
+                messageData
+            );
 
+            // Replace optimistic message with real one without reordering
             set((state) => ({
-                messages: state.messages.map((m) => (m._id === tempId ? res.data : m)),
+                messages: state.messages.map((m) =>
+                    m._id === tempId ? res.data : m
+                ),
             }));
 
-            socketService.emit("sendMessage", res.data);
+            // Emit to socket so the receiver gets it in real-time
+            socket.emit("sendMessage", res.data);
         } catch (error) {
+            // Remove optimistic message on failure
             set((state) => ({
                 messages: state.messages.filter((m) => m._id !== tempId),
             }));
-            get().handleError(error, "Failed to send message");
+            toast.error(error.response?.data?.message || "Something went wrong");
         }
     },
 

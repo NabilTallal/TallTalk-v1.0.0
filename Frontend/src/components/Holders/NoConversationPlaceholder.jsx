@@ -1,5 +1,5 @@
     import { MessageSquareMore } from "lucide-react";
-    import TextType from "../effects/TextType.jsx";
+    import TextType from "../Effects/TextType.jsx";
 
     const NoConversationPlaceholder = () => {
         return (
@@ -17,7 +17,7 @@
                                transition-all duration-500 ease-in-out rounded-badge"
                 >
                     <img
-                        src="/logo.png"
+                        src="/TallTalk_Logo.png"
                         alt="TallTalk Logo"
                         className="w-20 h-20 drop-shadow-[0_0_12px_rgba(132,255,100,0.7)]
                                    animate-float"
