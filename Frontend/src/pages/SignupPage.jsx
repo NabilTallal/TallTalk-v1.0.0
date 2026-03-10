@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useAuthStore } from "../stores/useAuthStore";
+import { authStore } from "../stores/authStore.js";
 import { LockIcon, MailIcon, UserIcon, LoaderIcon } from "lucide-react";
 import { Link } from "react-router";
 
-function SignUpPage() {
+function SignupPage() {
     const [formData, setFormData] = useState({ fullName: "", email: "", password: "" });
-    const { signup, isSigningUp } = useAuthStore();
+    const { signup, isSigningUp } = authStore();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -115,4 +115,4 @@ function SignUpPage() {
     );
 }
 
-export default SignUpPage;
+export default SignupPage;

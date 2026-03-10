@@ -1,11 +1,11 @@
 import { MessageSquareOff } from "lucide-react";
-import { useChatStore } from "../../stores/useChatStore.js";
+import { chatStore } from "../../stores/chatStore.js";
 import { useEffect } from "react";
-import { useAuthStore } from "../../stores/useAuthStore.js";
+import { authStore } from "../../stores/authStore.js";
 
 function ChatHeader() {
-    const { selectedUser, setSelectedUser } = useChatStore();
-    const { onlineUsers } = useAuthStore();
+    const { selectedUser, setSelectedUser } = chatStore();
+    const { onlineUsers } = authStore();
     const isOnline = onlineUsers.includes(selectedUser._id);
 
     useEffect(() => {

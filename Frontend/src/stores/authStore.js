@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { authService } from "../utils/authService";
 import { socketService } from "../utils/socketService";
 
-export const useAuthStore = create((set, get) => ({
+export const authStore = create((set, get) => ({
     authUser: null,
     socket: null,
     onlineUsers: [],

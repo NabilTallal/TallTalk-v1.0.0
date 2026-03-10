@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { useChatStore } from "../../stores/useChatStore.js";
+import { chatStore } from "../../stores/chatStore.js";
 import ContactsLoader from "../loaders/ContactsLoader.jsx";
 import NoChatsFound from "../Holders/NoChatsFound.jsx";
-import { useAuthStore } from "../../stores/useAuthStore.js";
-import { useUserStore} from "../../stores/useUserStore.js";
+import { authStore } from "../../stores/authStore.js";
+import { userStore } from "../../stores/userStore.js";
 
-function ChatsList() {
-    const { setSelectedUser, selectedUser } = useChatStore();
-    const { onlineUsers } = useAuthStore();
-    const { chats,loadMyChatPartners, isUsersLoading } = useUserStore();
-    const [activeChatId, setActiveChatId] = useState(null);
+function ChatList() {
+    const { setSelectedUser, selectedUser } = chatStore();
+    const { onlineUsers } = authStore();
+    const { chats: partners, loadMyChatPartners, isUsersLoading } = userStore();
+    const [activePartnerId, setActivePartnerId] = useState(null);
 
     useEffect(() => {
         loadMyChatPartners();
@@ -18,25 +18,25 @@ function ChatsList() {
     // Reset active chat when leaving a chat
     useEffect(() => {
         if (!selectedUser) {
-            setActiveChatId(null);
+            setActivePartnerId(null);
         }
     }, [selectedUser]);
 
     if (isUsersLoading) return <ContactsLoader />;
-    if (chats.length === 0) return <NoChatsFound />;
+    if (partners.length === 0) return <NoChatsFound />;
 
     return (
         <div className="flex flex-col gap-2">
-            {chats.map((chat) => {
-                const isActive = chat._id === activeChatId;
-                const isOnline = onlineUsers.includes(chat._id);
+            {partners.map((partner) => {
+                const isActive = partner._id === activePartnerId;
+                const isOnline = onlineUsers.includes(partner._id);
 
                 return (
                     <div
-                        key={chat._id}
+                        key={partner._id}
                         onClick={() => {
-                            setSelectedUser(chat);
-                            setActiveChatId(chat._id);
+                            setSelectedUser(partner);
+                            setActivePartnerId(partner._id);
                         }}
                         className={`flex items-center gap-3 p-3 rounded-2xl cursor-pointer border transition-all duration-300 
                             ${isActive
@@ -47,8 +47,8 @@ function ChatsList() {
                         <div className="relative">
                             <div className="size-12 rounded-full overflow-hidden border border-lime-500/30 shadow-inner">
                                 <img
-                                    src={chat.profilePic || "/avatar.png"}
-                                    alt={chat.fullName}
+                                    src={partner.profilePic || "/avatar.png"}
+                                    alt={partner.fullName}
                                     className="w-full h-full object-cover"
                                 />
                             </div>
@@ -58,8 +58,12 @@ function ChatsList() {
                         </div>
 
                         <div className="flex-1 min-w-0">
-                            <h4 className="text-slate-100 font-semibold truncate">{chat.fullName}</h4>
-                            <p className="text-sm text-slate-400 truncate">Send a message.</p>
+                            <h4 className="text-slate-100 font-semibold truncate">
+                                {partner.fullName}
+                            </h4>
+                            <p className="text-sm text-slate-400 truncate">
+                                Send a message.
+                            </p>
                         </div>
                     </div>
                 );
@@ -68,4 +72,4 @@ function ChatsList() {
     );
 }
 
-export default ChatsList;
+export default ChatList;

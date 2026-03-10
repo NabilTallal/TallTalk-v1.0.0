@@ -3,14 +3,10 @@ import toast from "react-hot-toast";
 
 import { chatService } from "../utils/chatService.js";
 
-export const useUserStore = create((set, get) => ({
+export const userStore = create((set, get) => ({
     allContacts: [],
     chats: [],
     isUsersLoading: false,
-
-    // STATE UPDATES
-    setAllContacts: (contacts) => set({ allContacts: contacts }),
-    setChats: (chats) => set({ chats }),
 
     // FETCH ALL CONTACTS
     loadAllContacts: async () => {

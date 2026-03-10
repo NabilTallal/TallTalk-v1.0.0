@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { useChatStore } from "../../stores/useChatStore.js";
+import { chatStore } from "../../stores/chatStore.js";
 
-function ChatViewSelector() {
-    const { activeTab, setActiveTab } = useChatStore();
+function ChatViewToggle() {
+    const { activeTab, setActiveTab } = chatStore();
     const [isOpen, setIsOpen] = useState(false);
 
     const handleSelect = (tab) => {
@@ -63,4 +63,4 @@ function ChatViewSelector() {
     );
 }
 
-export default ChatViewSelector;
+export default ChatViewToggle;

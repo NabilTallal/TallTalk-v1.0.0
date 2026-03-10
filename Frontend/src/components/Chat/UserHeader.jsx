@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
 import { Power, Info } from "lucide-react";
-import { useAuthStore } from "../../stores/useAuthStore.js";
+import { authStore } from "../../stores/authStore.js";
 
-function ProfileHeader() {
-    const { logout, authUser, updateProfile } = useAuthStore();
+function UserHeader() {
+    const { logout, authUser, updateProfile } = authStore();
     const [selectedImg, setSelectedImg] = useState(null);
     const fileInputRef = useRef(null);
 
@@ -76,7 +76,7 @@ function ProfileHeader() {
                         <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 opacity-0 peer-hover:opacity-100
                                         transition-opacity duration-300 bg-lime-950/80 backdrop-blur-sm border border-lime-700/40
                                         text-lime-200 text-[11px] rounded px-2 py-1 whitespace-nowrap shadow-[0_0_8px_rgba(163,230,53,0.15)] z-9999">
-                            Joined {daysAgo} ago in {formattedDate}.
+                            Joined {daysAgo} days ago in {formattedDate}.
                         </div>
                     </div>
                 </div>
@@ -94,4 +94,4 @@ function ProfileHeader() {
     );
 }
 
-export default ProfileHeader;
+export default UserHeader;

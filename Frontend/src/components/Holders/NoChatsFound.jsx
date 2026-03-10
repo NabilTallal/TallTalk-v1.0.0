@@ -1,33 +1,43 @@
-import { MessageCircleIcon } from "lucide-react";
-import { useChatStore } from "../../stores/useChatStore.js";
+import { MessageCircleDashedIcon } from "lucide-react";
+import { chatStore } from "../../stores/chatStore.js";
 
 function NoChatsFound() {
-    const { setActiveTab } = useChatStore();
+    const { setActiveTab } = chatStore();
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-lime-800/20 px-4">
-            <div className="flex flex-col items-center text-center space-y-5 max-w-md">
+        <div className="flex justify-center h-full pt-24 px-6">
+            <div className="flex flex-col items-center text-center max-w-md">
 
-                <div className="w-16 h-16 rounded-full bg-neutral-900/10 flex items-center justify-center">
-                    <MessageCircleIcon className="w-8 h-8 text-neutral-800" />
+                {/* Icon */}
+                <div className="w-16 h-16 mb-6 rounded-2xl
+                        bg-lime-500/5 border border-lime-500/20
+                        flex items-center justify-center
+                        shadow-[0_0_30px_rgba(132,255,100,0.07)]">
+                    <MessageCircleDashedIcon className="w-8 h-8 text-lime-400" />
                 </div>
 
-                <div>
-                    <h4 className="text-neutral-900 font-medium mb-1">
-                        No conversations yet
-                    </h4>
-                    <p className="text-neutral-700 text-sm">
-                        Start a new chat by selecting a contact from the contacts tab
-                    </p>
-                </div>
+                {/* Text */}
+                <h4 className="text-neutral-100 text-lg font-semibold mb-2 tracking-wide">
+                    Nothing here yet
+                </h4>
 
+                <p className="text-neutral-300 text-sm leading-relaxed mb-6">
+                    Your chats will show up here.
+                    Pick someone and start the first message.
+                </p>
+
+                {/* Button */}
                 <button
                     onClick={() => setActiveTab("contacts")}
-                    className="px-5 py-2 text-sm font-medium rounded-xl
-                     bg-neutral-900 text-white
-                     hover:opacity-90 transition-all duration-200"
+                    className="px-6 py-2.5 text-sm font-medium rounded-xl
+                     bg-lime-500/10 text-lime-400
+                     border border-lime-500/20
+                     hover:bg-lime-500/20
+                     hover:scale-105
+                     active:scale-95
+                     transition-all duration-200"
                 >
-                    Find contacts
+                    Explore contacts
                 </button>
 
             </div>

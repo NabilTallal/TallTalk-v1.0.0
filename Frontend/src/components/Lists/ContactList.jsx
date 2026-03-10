@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { useChatStore } from "../../stores/useChatStore.js";
+import { chatStore } from "../../stores/chatStore.js";
 import ContactsLoader from "../loaders/ContactsLoader.jsx";
-import { useAuthStore } from "../../stores/useAuthStore.js";
-import { useUserStore } from "../../stores/useUserStore.js";
+import { authStore } from "../../stores/authStore.js";
+import { userStore } from "../../stores/userStore.js";
 
 function ContactList() {
-    const { setSelectedUser } = useChatStore();
-    const { allContacts, loadAllContacts,  isContactsLoading} = useUserStore();
-    const { onlineUsers } = useAuthStore();
+    const { setSelectedUser } = chatStore();
+    const { allContacts, loadAllContacts,  isContactsLoading} = userStore();
+    const { onlineUsers } = authStore();
 
     useEffect(() => {
         loadAllContacts();

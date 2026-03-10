@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import toast from "react-hot-toast";
 
-import { useAuthStore } from "./useAuthStore.js";
+import { authStore } from "./authStore.js";
 import { chatService } from "../utils/chatService.js";
 import { socketService } from "../utils/socketService.js";
 
-export const useChatStore = create((set, get) => ({
+export const chatStore = create((set, get) => ({
     messages: [],
     chats: [],
     selectedUser: null,
@@ -36,7 +36,7 @@ export const useChatStore = create((set, get) => ({
 
     sendMessage: async (messageData) => {
         const { selectedUser, messages } = get();
-        const { authUser, socket } = useAuthStore.getState();
+        const { authUser, socket } = authStore.getState();
 
         const tempId = `temp-${Date.now()}`;
 
@@ -68,7 +68,7 @@ export const useChatStore = create((set, get) => ({
             }));
 
             // Emit to socket so the receiver gets it in real-time
-            socket.emit("sendMessage", res.data);
+            // socket.emit("sendMessage", res.data);
         } catch (error) {
             // Remove optimistic message on failure
             set((state) => ({

@@ -7,7 +7,7 @@ import {
     sendMessage,
 } from "../controllers/message.controller.js";
 import { protectRoute } from "../middleware/auth.middleware.js";
-import { securityProtection } from "../middleware/TallSec.middleware.js";
+import { securityProtection } from "../middleware/security.middleware.js";
 
 const router = express.Router();
 

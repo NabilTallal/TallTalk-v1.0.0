@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 import { Trash2 } from "lucide-react";
-import { useAuthStore } from "../../stores/useAuthStore.js";
-import { useChatStore } from "../../stores/useChatStore.js";
+import { authStore } from "../../stores/authStore.js";
+import { chatStore } from "../../stores/chatStore.js";
 import ChatHeader from "./ChatHeader.jsx";
-import NoChatHistoryPlaceholder from "../Holders/NoChatHistoryPlaceholder.jsx";
-import MessageInput from "./MessageInput.jsx";
+import NoChatHistory from "../Holders/NoChatHistory.jsx";
+import MessageComposer from "./MessageComposer.jsx";
 import MessagesLoader from "../loaders/MessagesLoader.jsx";
 
-function ChatContainer() {
+function ChatWindow() {
     const {
         selectedUser,
         loadMessages,
@@ -16,8 +16,8 @@ function ChatContainer() {
         subscribeToMessages,
         unsubscribeFromMessages,
         deleteMessageForEveryone,
-    } = useChatStore();
-    const { authUser } = useAuthStore();
+    } = chatStore();
+    const { authUser } = authStore();
     const messageEndRef = useRef(null);
 
     useEffect(() => {
@@ -55,7 +55,7 @@ function ChatContainer() {
                                     }`}
                                 >
                                     {msg.deletedForAll ? (
-                                        <i className="opacity-70 italic">This message was deleted</i>
+                                        <i className="opacity-60 italic font-medium">This message was deleted by the sender.</i>
                                     ) : (
                                         <>
                                             {msg.image && (
@@ -89,13 +89,13 @@ function ChatContainer() {
                         <div ref={messageEndRef} />
                     </div>
                 ) : (
-                    <NoChatHistoryPlaceholder name={selectedUser.fullName} />
+                    <NoChatHistory name={selectedUser.fullName} />
                 )}
             </div>
 
-            <MessageInput />
+            <MessageComposer />
         </>
     );
 }
 
-export default ChatContainer;
+export default ChatWindow;

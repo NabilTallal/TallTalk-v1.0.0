@@ -1,10 +1,10 @@
 import { useRef, useState, useEffect } from "react";
-import { useChatStore } from "../../stores/useChatStore.js";
+import { chatStore } from "../../stores/chatStore.js";
 import toast from "react-hot-toast";
 import { ImageIcon, SendIcon, XIcon, SmileIcon } from "lucide-react";
-import EmojiPicker from "emoji-picker-react";
+import EmojiPicker, { Theme } from "emoji-picker-react";
 
-function MessageInput() {
+function MessageComposer() {
     const [text, setText] = useState("");
     const [imagePreview, setImagePreview] = useState(null);
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -13,7 +13,7 @@ function MessageInput() {
     const pickerRef = useRef(null);
     const inputRef = useRef(null);
 
-    const { sendMessage } = useChatStore();
+    const { sendMessage } = chatStore();
 
     // Close emoji picker when clicking outside
     useEffect(() => {
@@ -140,11 +140,11 @@ function MessageInput() {
                     className="absolute bottom-14 right-0 z-50"
                     style={{ transform: 'translateX(-10%)' }}
                 >
-                    <EmojiPicker className="w-full h-full" onEmojiClick={handleEmojiClick} />
+                    <EmojiPicker theme={Theme.DARK} className="w-full h-full" onEmojiClick={handleEmojiClick} />
                 </div>
             )}
         </div>
     );
 }
 
-export default MessageInput;
+export default MessageComposer;

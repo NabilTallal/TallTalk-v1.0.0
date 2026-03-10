@@ -1,9 +1,9 @@
-import {sendWelcomeEmail} from "../Email/emailHandler.handler.js";
+import {sendWelcomeEmail} from "../email/email.handler.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
-import {generateToken} from "../utils/utils.js";
+import {generateToken} from "../utils/helpers.util.js";
 import cloudinary from "../utils/cloudinary.util.js";
-import { ENV } from "../utils/env.js";
+import { EnvUtil } from "../utils/env.util.js";
 
 const GENERIC_CLIENT_ERROR = "Authentication failed.";
 const GENERIC_SERVER_ERROR = "Internal server error.";
@@ -28,7 +28,7 @@ export const signup = async (req, res) => {
 
         if (userExists) {
             if (userExists.email === email) { // the email of the userExists is equal to the input the user submitted.
-                return res.status(400).json({message: "Email already exists."});
+                return res.status(400).json({message: "email already exists."});
             }
             return res.status(400).json({message: "A user with the same full name already exists."});
         }
@@ -50,7 +50,7 @@ export const signup = async (req, res) => {
             profilePic: createdUser.profilePic,
         });
 
-        sendWelcomeEmail(createdUser.email, createdUser.fullName, ENV.CLIENT_URL).catch((err) =>
+        sendWelcomeEmail(createdUser.email, createdUser.fullName, EnvUtil.CLIENT_URL).catch((err) =>
             console.error("Failed to send welcome email:", err)
         );
     } catch (error) {
@@ -86,6 +86,7 @@ export const login = async (req, res) => {
             email: user.email,
             profilePic: user.profilePic
         });
+
     } catch (error) {
         console.error("Login error:", error);
         return res.status(500).json({ message: GENERIC_SERVER_ERROR });

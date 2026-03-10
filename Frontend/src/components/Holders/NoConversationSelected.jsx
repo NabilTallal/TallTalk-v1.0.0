@@ -1,7 +1,7 @@
     import { MessageSquareMore } from "lucide-react";
     import TextType from "../Effects/TextType.jsx";
 
-    const NoConversationPlaceholder = () => {
+    const NoConversationSelected = () => {
         return (
             <div
                 className="flex flex-col items-center justify-center h-full p-6
@@ -46,4 +46,4 @@
         );
     };
 
-    export default NoConversationPlaceholder;
+    export default NoConversationSelected;
