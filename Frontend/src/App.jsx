@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, Navigate} from "react-router";
+import AnimatedBackground from "./components/Background/AnimatedBackground.jsx";
+import ChatPage from "./pages/ChatPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import SignupPage from "./pages/SignupPage.jsx";
+import {authStore} from "./stores/authStore.js";
+import {useEffect} from "react";
+import PageLoader from "./components/Loaders/PageLoader.jsx";
+import {Toaster} from "react-hot-toast";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const {checkAuth, isCheckingAuth, authUser} = authStore();
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    useEffect(() => {
+        checkAuth();
+    }, []);
+
+    if(isCheckingAuth) return <PageLoader/>
+
+    return (
+        <div className="font-sans min-h-screen flex items-center justify-center bg-transparent">
+
+            {/* BACKGROUND */}
+            <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+                <AnimatedBackground />
+            </div>
+
+            {/* FOREGROUND - NOW WE CENTER THIS */}
+            <div className="relative z-10 flex items-center justify-center w-full h-full p-4">
+                <Routes>
+                    <Route path="/" element={authUser ? <ChatPage /> : <Navigate to={"/login"} />} />
+                    <Route path="/login" element={!authUser ? <LoginPage /> : <Navigate to={"/"} />} />
+                    <Route path="/signup" element={!authUser ? <SignupPage /> : <Navigate to={"/"} />} />
+                </Routes>
+                <Toaster />
+            </div>
+
+        </div>
+    )
 }
 
-export default App
+export default App;

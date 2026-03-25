@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
-import { ENV } from "../utils/env.js";
+import { EnvUtil } from "../utils/env.util.js";
 import User from "../models/user.model.js";
 
 /**
- * Middleware to authenticate Socket.IO connections using JWT from Http-only cookies.
+ * middleware to authenticate Socket.IO connections using JWT from Http-only cookies.
  * Attaches the authenticated user to the socket object.
  */
-export const socketAuthMiddleware = async (socket, next) => {
+export const socketMiddleware = async (socket, next) => {
     try {
         // Extract JWT from cookies
         const cookies = socket.handshake.headers.cookie || "";
@@ -22,7 +22,7 @@ export const socketAuthMiddleware = async (socket, next) => {
         // Verify JWT
         let decodedToken;
         try {
-            decodedToken = jwt.verify(token, ENV.JWT_SECRET);
+            decodedToken = jwt.verify(token, EnvUtil.JWT_SECRET);
         } catch (err) {
             if (err.name === "TokenExpiredError") {
                 return next(new Error("Unauthorized: Token expired."));

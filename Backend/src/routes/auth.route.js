@@ -1,11 +1,11 @@
 import express from "express";
-import {signup, login, logout, updateProfilePic} from "../Controllers/auth.controller.js";
-import {protectRoute} from "../Middleware/auth.middleware.js";
-import {securityProtection} from "../Middleware/tallSec.middleware.js";
+import {signup, login, logout, updateProfilePic} from "../controllers/auth.controller.js";
+import {protectRoute} from "../middleware/auth.middleware.js";
+import {securityProtection} from "../middleware/security.middleware.js";
 
 const router = express.Router();
 
-router.use(securityProtection);
+// router.use(securityProtection);
 
 router.post("/signup", signup);
 router.post("/login", login);
