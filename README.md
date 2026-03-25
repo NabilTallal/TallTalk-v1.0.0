@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="./Frontend/public/TallTalk_Logo.png" alt="TallTalk Logo" width="100"/>
+
 # TallTalk
 ### A Modern, Secure, Real-Time Chat Application
 
