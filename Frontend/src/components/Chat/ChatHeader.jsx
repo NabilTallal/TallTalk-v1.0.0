@@ -34,7 +34,7 @@ function ChatHeader() {
                     <img
                         src={selectedUser.profilePic || "/avatar.png"}
                         alt={selectedUser.fullName}
-                        className="w-full h-full object-cover rounded-full border-2 border-gray-800/40"
+                        className="w-full h-full object-cover object-top rounded-full border-2 border-gray-800/40 relative z-10"
                     />
                 </div>
 

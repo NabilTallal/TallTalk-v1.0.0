@@ -8,7 +8,7 @@ import NoConversationSelected from "../components/Holders/NoConversationSelected
 
 function ChatPage() {
     const { activeTab, selectedUser } = chatStore();
-
+    console.log(selectedUser);
     return (
         <div className="relative w-full max-w-6xl h-[700px] blur-none">
             <div className="flex w-full h-full rounded-2xl overflow-hidden backdrop-blur-md border border-white/10 shadow-xl">
