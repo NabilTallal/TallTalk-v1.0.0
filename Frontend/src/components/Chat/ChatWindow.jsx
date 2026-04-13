@@ -5,7 +5,7 @@ import { chatStore } from "../../stores/chatStore.js";
 import ChatHeader from "./ChatHeader.jsx";
 import NoChatHistory from "../Holders/NoChatHistory.jsx";
 import MessageComposer from "./MessageComposer.jsx";
-import MessagesLoader from "../loaders/MessagesLoader.jsx";
+import MessagesLoader from "../Loaders/MessagesLoader.jsx";
 
 function ChatWindow() {
     const {
