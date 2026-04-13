@@ -25,13 +25,11 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 if (EnvUtil.NODE_ENV === "production") {
-    const clientPath = path.join(__dirname, "../Frontend");
-
-    app.use(express.static(clientPath));
-
-    app.get("*", (_, res) => {
-        res.sendFile(path.join(clientPath, "index.html"));
-    });
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
+    
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
 }
 
 const startServer = async () => {
