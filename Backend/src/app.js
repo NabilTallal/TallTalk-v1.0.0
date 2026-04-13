@@ -18,7 +18,7 @@ app.use(express.json({ limit: "5mb" })); // Parse JSON bodies
 app.use(cors({ origin: EnvUtil.CLIENT_URL, credentials: true })); // Enable CORS for frontend
 app.use(cookieParser()); // Parse cookies
 //app.use(applySecurityHeaders); // HTTP helmet
-// app.use(securityProtection); // Disable in development.
+// app.use(securityProtection);
 if (EnvUtil.NODE_ENV === "development") app.use(morgan("dev")); // Logging in dev
 
 app.use("/api/auth", authRoutes);
