@@ -25,9 +25,12 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 if (EnvUtil.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "Frontend", "dist")));
+    const clientPath = path.join(__dirname, "Frontend");
+
+    app.use(express.static(clientPath));
+
     app.get("*", (_, res) => {
-        res.sendFile(path.join(__dirname, "Frontend", "dist", "index.html"));
+        res.sendFile(path.join(clientPath, "index.html"));
     });
 }
 
