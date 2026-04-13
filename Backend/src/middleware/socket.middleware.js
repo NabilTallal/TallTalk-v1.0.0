@@ -2,10 +2,6 @@ import jwt from "jsonwebtoken";
 import { EnvUtil } from "../utils/env.util.js";
 import User from "../models/user.model.js";
 
-/**
- * middleware to authenticate Socket.IO connections using JWT from Http-only cookies.
- * Attaches the authenticated user to the socket object.
- */
 export const socketMiddleware = async (socket, next) => {
     try {
         // Extract JWT from cookies
