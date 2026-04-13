@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { chatStore } from "../../stores/chatStore.js";
-import ContactsLoader from "../loaders/ContactsLoader.jsx";
+import ContactsLoader from "../Loaders/ContactsLoader.jsx";
 import NoChatsFound from "../Holders/NoChatsFound.jsx";
 import { authStore } from "../../stores/authStore.js";
 import { userStore } from "../../stores/userStore.js";
